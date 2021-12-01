@@ -1,17 +1,26 @@
-import { getWalkers } from "./database.js"
+import { getWalkers } from "./database.js";
+import { getCities } from "./database.js";
 
-const walkers = getWalkers()
-
+const walkers = getWalkers();
+const cities = getCities();
 
 export const CityList = () => {
-    let citiesHTML = "<ol>"
+  let citiesHTML = "<ol>";
 
-    for (const walker of walkers) {
-        citiesHTML += `<li>${walker.city}</li>`
+  for (const walker of walkers) {
+    for (const city of cities) {
+      if (walker.cityId === city.id) {
+        citiesHTML += `<li>${city.name}</li>`;
+        break;
+      }
     }
+  }
 
-    citiesHTML += "</ol>"
+  citiesHTML += "</ol>";
 
-    return citiesHTML
-}
+  return citiesHTML;
+};
 
+
+// let citiesWithService = cities.filter((city) =>walkers.some((walker) => walker.cityId === city.id));
+// citiesWithService.map()
